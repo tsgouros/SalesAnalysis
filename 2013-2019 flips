@@ -1,0 +1,21 @@
+library(tidyverse)
+library(readxl)
+library(dplyr)
+
+prop <- rbind(extract2019, extract2018, extract2017, extract2016, extract2015, extract2014, extract2013)
+
+prop %>% group_by(`ACCOUNT NUM`)%>% dim()
+## 239,948 sales
+
+prop %>% group_by(`ACCOUNT NUM`)%>% dplyr::summarise(N=n())
+## 36,838 distinct account numbers appear
+
+repeats <- prop %>% 
+  + group_by(`ACCOUNT NUM`)%>%
+  + dplyr::filter(n()>1)
+
+non_repeats <- prop %>% 
+  + group_by(`ACCOUNT NUM`)%>%
+  + dplyr::filter(n()<2)
+
+## Trying to isolate repeats and identify which plots appear the most; not sure how to get there
